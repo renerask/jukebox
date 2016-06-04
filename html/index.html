@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="css/numpad.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="js/list.js"></script> <!-- http://www.listjs.com/docs -->
+    <script type="text/javascript" src="js/mopidy.js"></script>
+    <script type="text/javascript" src="js/dragscroll.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+
+<div id="popup">
+    <div class="header">
+        <div id="popup-artist"></div>
+        <div id="popup-album"></div>
+        <div id="browse-num"></div>
+    </div>
+    <div class="right-box">
+        <div class="img-box" >
+            <div id="browse-image"></div>
+        </div>
+        <div class="buttons">
+            <div onclick="showPrev()" class="show-button show-prev fa fa-arrow-left fa-2x"></div>
+            <span onclick="showNext()" class="show-button show-next fa fa-arrow-right fa-2x"></span>
+            <span onclick="playPopup()" class="show-button show-play fa fa-play fa-2x"></span>
+            <span onclick="queuePopup()" class="show-button show-plus-circle fa fa-plus-circle fa-2x"></span>
+            <span onclick="keyHidePopup()" class="show-button show-close fa fa-times fa-2x"></span>
+        </div>
+    </div>
+    <div class="dragscroll">
+        <div class="tracks">
+            <div id="browse-list">
+                <ul class="b-list">
+                    <li>
+                      <span class="track">#</span>
+                      <div class="track_artist">
+                          <span class="title">Title</span><br />
+                          <span class="artist">Artist</span>
+                      </div>
+                      <span class="duration">Duration</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="range" id="slider" min="0" max="100" value="0" onchange="setPosition(event)" />
+<div class="background-image" id="bgimage"></div>
+<div class="header">
+    <div id="box_info">
+        <div id="number_state">
+            <ul>
+              <li>Playing: <span id="numbers">000</span></li>
+              <li>Next: <span id="next_cd">000</span></li>
+            </ul>
+        </div>
+        <div id="counter">
+            <span id="currenttime">00:00</span>/<span id="songduration">00:00</span>
+        </div>
+    </div>
+        <div id="cd_info">
+            <div id="artist"></div>
+            <div id="album"></div>
+        </div>
+</div>
+<table id="main">
+<tbody>
+<tr>
+    <td>
+        <div class="dragscroll">
+            <div id="song-list">
+                <ul id="play-list" class="list">
+                    <li id="trackinfo" class="not-playing">
+                      <span class="play fa fa-play-circle fa-2x"></span>
+                      <span class="track">#</span>
+                      <div class="track_artist">
+                          <span class="title">Title</span><br />
+                          <span class="artist">Artist</span>
+                      </div>
+                      <span class="duration">Duration</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </td>
+    <td width=300>
+        <table id="numpad" width="300">
+        <tbody>
+        <tr>
+            <td id="click-1">1</td>
+            <td id="click-2">2</td>
+            <td id="click-3">3</td>
+            <td id="click-clr">clr</td>
+        </tr>
+        <tr>
+            <td id="click-4">4</td>
+            <td id="click-5">5</td>
+            <td id="click-6">6</td>
+            <td id="click-view"><i class="fa fa-eye"></i></td>
+        </tr>
+        <tr>
+            <td id="click-7">7</td>
+            <td id="click-8">8</td>
+            <td id="click-9">9</td>
+            <td ></td>
+        </tr>
+        <tr>
+            <td id="click-0" colspan="2">0</td>
+            <td id="click-play" colspan="2">play</td>
+        </tr>
+        <tr>
+            <td id="click-backward"><i class="fa fa-step-backward"></i></td>
+            <td id="click-playtoggle"><i class="fa fa-play"></i></td>
+            <td id="click-forward"><i class="fa fa-step-forward"></i></td>
+            <td ></td>
+        </tr>
+        </tbody>
+        </table>
+
+    </td>
+</tr>
+</tbody>
+</table>
+
+
+</body>
+</html>
