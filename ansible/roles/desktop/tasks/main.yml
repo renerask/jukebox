@@ -1,0 +1,25 @@
+---
+
+- name: start firefox on login
+  copy: src=firefox.desktop dest=.config/autostart/firefox.desktop
+
+- name: set firefox profile
+  template: src=profiles.ini.j2 dest=.mozilla/firefox/profiles.ini
+
+- name: set firefox preferences
+  copy: src=user.js dest=.mozilla/firefox/{{ firefox_profile }}/user.js
+
+- name: set firefox extensions.ini
+  copy: src=extensions.ini dest=.mozilla/firefox/{{ firefox_profile }}/extensions.ini
+
+- name: set firefox extensions.json
+  copy: src=extensions.json dest=.mozilla/firefox/{{ firefox_profile }}/extensions.json
+
+- name: create directory for fullscreen xpi
+  file: path=.mozilla/firefox/{{ firefox_profile }}/extensions/run-fullscreen@helpful-stuff.ru.xpi state=directory
+
+- name: install fullscreen xpi
+  unarchive: src={{ fullscreen_xpi }} dest=.mozilla/firefox/{{ firefox_profile }}/extensions/run-fullscreen@helpful-stuff.ru.xpi
+
+
+

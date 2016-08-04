@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Firefox
+Comment=
+Exec=iceweasel
+StartupNotify=false
+Terminal=false
+Hidden=false
+

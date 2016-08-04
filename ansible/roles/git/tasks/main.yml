@@ -1,0 +1,4 @@
+---
+
+- name: pull git
+  git: repo=https://github.com/renerask/jukebox dest=jukebox/

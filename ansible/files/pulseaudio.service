@@ -1,0 +1,13 @@
+
+[Unit]
+Description=pulseaudio
+After=network.target
+
+[Service]
+Type=simple
+#ExecStart=/usr/bin/pulseaudio -vvv --system --disallow-exit --disallow-module-loading=1 --daemonize=0 --log-target=syslog --high-priority
+ExecStart=/usr/bin/pulseaudio --system --disallow-exit --disallow-module-loading=1 --daemonize=0 --high-priority
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,6 @@
+---
+
+- name: configure mopidy
+  hosts: raspberry
+  roles:
+      - mopidy

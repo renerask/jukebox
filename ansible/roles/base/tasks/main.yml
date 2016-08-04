@@ -1,0 +1,34 @@
+---
+
+- name: update system
+  apt: upgrade=safe update_cache=yes
+  become: yes
+
+- name: remove packages
+  apt: name={{ item }} state=absent
+  become: yes
+  with_items:
+      - gvfs-backends
+
+- name: install packages
+  apt: name={{ item }}
+  become: yes
+  with_items:
+      - git
+      - python-pip
+      - pulseaudio
+      - pavucontrol
+      - apache2
+      - ntp
+      - gstreamer0.10-pulseaudio
+      - gstreamer1.0-pulseaudio
+
+- name: install mopidy and deps
+  pip: name={{ item }}
+  become: yes
+  with_items:
+      - Mopidy
+
+- name: set boot config
+  copy: src=config.txt dest=/boot/config.txt owner=root group=root
+  become: yes

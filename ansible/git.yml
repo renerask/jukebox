@@ -1,0 +1,7 @@
+---
+
+- name: deploy git
+  hosts: raspberry
+  roles:
+      - git
+

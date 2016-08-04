@@ -1,0 +1,16 @@
+[Unit]
+Description=Mopidy music server
+After=avahi-daemon.service
+After=dbus.service
+After=network.target
+After=pulseaudio.service
+After=sound.target
+After=mnt-Music.mount
+
+[Service]
+User=pi
+ExecPre=/usr/local/bin/mopidy local scan
+ExecStart=/usr/local/bin/mopidy
+
+[Install]
+WantedBy=multi-user.target

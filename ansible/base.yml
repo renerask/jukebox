@@ -1,0 +1,10 @@
+---
+
+
+- name: raspberry setup
+  hosts: raspberry
+  roles:
+    - base
+    - git
+    - mopidy
+    - desktop

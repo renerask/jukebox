@@ -1,0 +1,42 @@
+---
+
+
+- name: create mopidy directories
+  file: path={{ item }} state=directory mode=0755
+  with_items:
+      - mopidy
+      - mopidy/cache
+      - mopidy/data
+      - mopidy/images
+      - .config
+      - .config/mopidy
+
+- name: install config
+  copy: src=mopidy.conf dest=.config/mopidy/mopidy.conf
+
+- name: install systemd service
+  copy: src=mopidy.service dest=/etc/systemd/system/mopidy.service
+  become: yes
+
+- name: enable mopidy service
+  service: name=mopidy enabled=yes state=started
+
+- name: set volume on startup
+  copy: src=rc.local dest=/etc/rc.local
+  become: yes
+
+- name: configure apache
+  copy: src=000-default.conf dest=/etc/apache2/sites-available/000-default.conf
+  become: yes
+
+- name: configure pulseaudio
+  copy: src=system.pa dest=/etc/pulse/system.pa
+  become: yes
+
+- name: enable pulseaudio service
+  service: name=pulseaudio enabled=yes state=started
+
+  #- name: configure pulseaudio
+  #    copy: src=daemon.conf dest=/etc/pulse/daemon.conf
+  #  become: yes
+

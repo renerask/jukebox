@@ -1,0 +1,6 @@
+---
+
+- name: desktop configuration
+  hosts: raspberry
+  roles:
+      - desktop
