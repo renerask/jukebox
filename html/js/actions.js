@@ -13,28 +13,6 @@ function search() {
         });
 }
 
-function queuePopup(e) {
-  $('#next_cd').text(browse_num.text());
-}
-
-
-function playPopup(e)  {
-
-}
-
-
-function songClick(e) {
-    target = e.target
-    if ( target.parentElement.id == "" ) {
-        li = target.parentElement;
-        if ( target.classList.contains("play") ) {
-            tlid = parseInt( li.getAttribute("data-tlid") );
-            Mop.playback.play( { tlid: tlid } ).then(function(data) {
-                console.log(data);
-            });
-        }
-    }
-}
 
 function setBrowseNumbers(str) {
      num = browse_num.text().slice(-3);
@@ -42,14 +20,23 @@ function setBrowseNumbers(str) {
      browse_num.text(new_num.slice(-3));
 }
 
-function setNumbers(str) {
-     num = numbers.text().slice(-3);
-     new_num = num + str;
-     numbers.text(new_num.slice(-3));
-     setWarning();
-     setNumbersTimer();
+function showCDTrack() {
+    cd = ("000" + key_cd).slice(-3);
+    track = ("00" + key_track).slice(-2);
+    keys.text(cd + ":" + track);
 }
 
+function clearCDTrack() {
+  keys.text("000:00");
+}
+
+function setNumbers(str) {
+    num = numbers.text().slice(-3);
+    new_num = num + str;
+    numbers.text(new_num.slice(-3));
+    setWarning();
+    setNumbersTimer();
+}
 
 // reset the "numbers" if it doesn't match the currently playing disc
 function setNumbersTimer() {
@@ -64,74 +51,6 @@ function setWarning() {
      } else {
          numbers.addClass("not-found");
      }
-}
-
-function keyShowNext() {
-    disc = browse_num.text();
-    if ( disc == "" ) {
-        disc = numbers.text();
-        browse_num.text(disc);
-    }
-    if ( cdlist.indexOf(parseInt(disc)) == -1 ) {
-        setNumbers(cur_cd);
-    }
-    showNext();
-}
-
-function keyShowPrev() {
-    disc = browse_num.text();
-    if ( disc == "" ) {
-        disc = numbers.text();
-        browse_num.text(disc);
-    }
-    if ( cdlist.indexOf(parseInt(disc)) == -1 ) {
-        setNumbers(cur_cd);
-    }
-    showPrev();
-}
-
-function keyShowDisc() {
-    disc = numbers.text();
-    if ( cdlist.indexOf(parseInt(disc)) != -1 ) {
-        showDisc(disc);
-    }
-}
-
-function keyPlayDisc() {
-    popup.fadeOut();
-    disc = numbers.text();
-    if ( cdlist.indexOf(parseInt(disc)) != -1 ) {
-        playDisc(disc);
-    }
-}
-
-function keyTooglePlay() {
-    if ( play_state == "paused" ) {
-        Mop.playback.resume({});
-        playtoggle.addClass("fa-pause");
-        playtoggle.removeClass("fa-play");
-    }   
-    if ( play_state == "playing" ) {
-        Mop.playback.pause({});
-        playtoggle.removeClass("fa-pause");
-        playtoggle.addClass("fa-play");
-    }   
-}
-
-function keyPlayPrevious() {
-    // if currently playing track is the first then don't do .previous() 
-    if ( list.firstChild.dataset.id != "track_" + cur_track.track_no ) {
-        Mop.playback.previous({});
-    }
-}
-
-function keyPlayNext() {
-    Mop.playback.next({});
-}
-
-
-function keyHidePopup() {
-    popup.fadeOut()
 }
 
 function showPrev(){
@@ -230,9 +149,15 @@ function playDisc(disc) {
 
               // add the new songs
               Mop.tracklist.add({'uris': urilist}).then(function(data){
-                  // start playing the first song
-                  Mop.playback.play( { tlid: data[0].tlid } ).then(function(data){
+                  // start playing the selected track or the first track if not found
+                  track = parseInt(key_track)-1;
+                  if ( !data[track] ) {
+                      track = 0;
+                  }
+                  Mop.playback.play( { tlid: data[track].tlid } ).then(function(data){
                       console.log(data);
+                      key_cd = "000";
+                      key_track = "000";
                   });
                   // display the song list
                   song_i = 0;
@@ -304,6 +229,7 @@ function loadDisc(resArr) {
             // display the image if any is found
             disc = songs[0].track.uri.split(':')[2].split('/')[0];
             setNumbers(disc);
+            showCDTrack();
             cur_cd = numbers.text();
             bgimage.style.backgroundImage = "url(\'http://" + server + ":6680/" + parseInt(disc) + "/cover.jpg\')";
         }
@@ -319,6 +245,7 @@ function loadDisc(resArr) {
             setDuration(data.length);
         }
     });
+    showCDTrack();
 
     // get position in song
     Mop.playback.getTimePosition({}).then(function(data){

@@ -2,6 +2,8 @@
 
 var list;
 var numbers;
+
+
 var browse_num;
 var artist;
 var album;
@@ -12,7 +14,7 @@ var currenttime;
 var songduration;
 var cdlist; // list of active CD numbers
 var cur_cd = "000"; // current cd number as zero padded text
-var cur_track;
+var cur_track = { track_no : 0 };
 var slider;
 var next_tl_track; // if null then we are playing the last track
 var popup;
@@ -22,6 +24,12 @@ var play_state;
 var playtoggle;
 
 var next_cd;
+var next_cd_track;
+
+var key_entry = "cd";
+var key_cd = 000;
+var key_track = 00;
+
 var numbers_timer;
 var timer;
 var curtime = 0;
@@ -45,7 +53,7 @@ function checkKey(e) {
         case "7":
         case "8":
         case "9":
-            setNumbers(e.key);
+            keyNumber(e.key);
             break;
 
         case "ArrowLeft":
@@ -103,7 +111,7 @@ function numClick(e){
       case "click-7":
       case "click-8":
       case "click-9":
-          setNumbers(e.target.innerHTML);
+          keyNumber(e.target.innerHTML);
           break;
 
       case "click-clr":
@@ -111,7 +119,7 @@ function numClick(e){
           break;
 
       case "click-play":
-          keyPlayDisc();
+          keyPlay();
           break;
 
       case "click-backward":
@@ -130,6 +138,14 @@ function numClick(e){
           keyShowDisc();
           break;
 
+      case "click-next":
+          keyPlayNextCD();
+          break;
+
+      case "click-plus":
+          keyQueueCD();
+          break;
+
       case "click-fullscreen":
           document.getElementById("screen").mozRequestFullScreen();
           break;
@@ -144,6 +160,7 @@ $(document).ready(function(){
 
     list = document.getElementById("play-list");
     numbers = $("#numbers");
+    keys = $("#keys");
     browse_num = $("#browse-num");
     slider = document.getElementById("slider");
     artist = document.getElementById("artist");

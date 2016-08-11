@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/dragscroll.js"></script>
     <script type="text/javascript" src="js/timer.js"></script>
     <script type="text/javascript" src="js/actions.js"></script>
+    <script type="text/javascript" src="js/touch.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </head>
 <body>
@@ -58,12 +59,13 @@
     <div id="box_info">
         <div id="number_state">
             <ul>
-              <li>Playing: <span id="numbers">000</span></li>
-              <li>Next: <span id="next_cd">000</span></li>
+              <li>Playing: <span id="numbers">000:00</span></li>
+              <li>Next: <span id="next_cd">000:00</span></li>
             </ul>
         </div>
         <div id="counter">
             <span id="currenttime">00:00</span>/<span id="songduration">00:00</span>
+              <span id="keys">000:00</span>
         </div>
     </div>
         <div id="cd_info">
@@ -110,17 +112,17 @@
             <td id="click-7">7</td>
             <td id="click-8">8</td>
             <td id="click-9">9</td>
-            <td ></td>
+            <td id="click-0">0</td>
         </tr>
         <tr>
-            <td id="click-0" colspan="2">0</td>
             <td id="click-play" colspan="2">play</td>
+            <td id="click-next" colspan="2">next</td>
         </tr>
         <tr>
             <td id="click-backward"><i class="fa fa-step-backward"></i></td>
             <td id="click-playtoggle"><i class="fa fa-play"></i></td>
             <td id="click-forward"><i class="fa fa-step-forward"></i></td>
-            <td ></td>
+            <td id="click-plus"><i class="fa fa-plus"></i></td>
         </tr>
         </tbody>
         </table>
