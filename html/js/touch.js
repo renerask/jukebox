@@ -20,8 +20,10 @@ function songClick(e) {
 function keyNumber(str) {
     if ( key_entry == "cd" ) {
         key_cd = (key_cd + str).slice(-3);
+        keys_cd.addClass("active-input");
     } else {
         key_track = (key_track + str).slice(-2);
+        keys_track.addClass("active-input");
     }
     showCDTrack();
 }
@@ -29,9 +31,13 @@ function keyNumber(str) {
 function keyPlay() {
   if ( key_entry == "cd" ) {
       key_entry = "track";
+      keys_cd.removeClass("active-input");
+      keys_track.addClass("active-input");
   } else {
       keyPlayDisc();
       key_entry = "cd";
+      keys_cd.addClass("active-input");
+      keys_track.removeClass("active-input");
       clearCDTrack();
   }
 }

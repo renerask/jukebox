@@ -23,11 +23,13 @@ function setBrowseNumbers(str) {
 function showCDTrack() {
     cd = ("000" + key_cd).slice(-3);
     track = ("00" + key_track).slice(-2);
-    keys.text(cd + ":" + track);
+    keys_cd.text(cd);
+    keys_track.text(track);
 }
 
 function clearCDTrack() {
-  keys.text("000:00");
+  keys_cd.text("000");
+  keys_track.text("00");
 }
 
 function setNumbers(str) {

@@ -160,7 +160,10 @@ $(document).ready(function(){
 
     list = document.getElementById("play-list");
     numbers = $("#numbers");
-    keys = $("#keys");
+    playing_cd = $("#playing_cd");
+    playing_track = $("#playing_track");
+    keys_cd = $("#keys_cd");
+    keys_track = $("#keys_track");
     browse_num = $("#browse-num");
     slider = document.getElementById("slider");
     artist = document.getElementById("artist");

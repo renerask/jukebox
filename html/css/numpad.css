@@ -159,6 +159,10 @@ input[type=range]::-moz-range-thumb {
     overflow: hidden;  
 }
 
+.active-input {
+    color: yellow;
+}
+
 #box_info {
     float: right;
     width: 300px;
@@ -184,7 +188,6 @@ input[type=range]::-moz-range-thumb {
 
 #number_state span {
     width: 70px;
-    float: right;
     text-shadow: 2px 2px 2px #000;
     font-weight: bold;
     font-size: 1em;
